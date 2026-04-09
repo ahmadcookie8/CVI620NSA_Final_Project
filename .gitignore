@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Conda / virtual environments
+envs/
+.conda/
+*.conda
+
+# VS Code
+.vscode/
+
+# Model files (large binaries)
+*.h5
+*.pkl
+*.pt
+*.pth
+
+# OS
+.DS_Store
+Thumbs.db
