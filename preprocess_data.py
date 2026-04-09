@@ -11,13 +11,17 @@ TARGET_W = 200
 TARGET_H = 66
 
 DATASETS = [
+    # {
+    #     'src': 'augmented_data_forwards',
+    #     'dst': 'preprocessed_data_forwards',
+    # },
+    # {
+    #     'src': 'augmented_data_backwards',
+    #     'dst': 'preprocessed_data_backwards',
+    # },
     {
-        'src': 'augmented_data_forwards',
-        'dst': 'preprocessed_data_forwards',
-    },
-    {
-        'src': 'augmented_data_backwards',
-        'dst': 'preprocessed_data_backwards',
+        'src': 'augmented_data_forwards_backwards_unstable',
+        'dst': 'preprocessed_data_forwards_backwards_unstable'
     },
 ]
 

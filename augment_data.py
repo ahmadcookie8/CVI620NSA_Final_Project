@@ -7,13 +7,17 @@ import pandas as pd
 AUGMENTATION_PROB = 0.25
 
 DATASETS = [
+    # {
+    #     'src': 'training_data_forwards',
+    #     'dst': 'augmented_data_forwards',
+    # },
+    # {
+    #     'src': 'training_data_backwards',
+    #     'dst': 'augmented_data_backwards',
+    # },
     {
-        'src': 'training_data_forwards',
-        'dst': 'augmented_data_forwards',
-    },
-    {
-        'src': 'training_data_backwards',
-        'dst': 'augmented_data_backwards',
+        'src': 'training_data_forwards_backwards_unstable',
+        'dst': 'augmented_data_forwards_backwards_unstable'
     },
 ]
 
