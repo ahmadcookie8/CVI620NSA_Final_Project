@@ -11,9 +11,19 @@ from io import BytesIO
 from PIL import Image
 import cv2
 
-sio = socketio.Server()
-app = Flask(__name__) #__main__
-maxSpeed = 10
+sio = socketio.Server(async_mode='eventlet')
+# python-socketio 5.x no longer auto-connects clients to the '/' namespace.
+# The simulator (old socket.io client) never sends the explicit connect packet,
+# so we patch the EIO connect to store environ first, then trigger the namespace connect.
+_orig_eio_connect = sio._handle_eio_connect
+def _auto_namespace_connect(eio_sid, environ):
+    _orig_eio_connect(eio_sid, environ)       # stores environ, initializes manager
+    sio._handle_connect(eio_sid, '/', None)    # connects client to '/' namespace
+sio.eio.on('connect', _auto_namespace_connect)
+
+app = Flask(__name__)
+# maxSpeed = 10
+maxSpeed = 30
 
 def preProcessing(img):
     img = img[60:135, :, :]
@@ -52,5 +62,5 @@ def sendControl(steering, throttle):
 
 if __name__ == "__main__":
     model = load_model('model.h5')
-    app = socketio.Middleware(sio, app)
+    app = socketio.WSGIApp(sio, app)
     eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
