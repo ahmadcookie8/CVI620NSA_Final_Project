@@ -18,12 +18,6 @@ envs/
 # VS Code
 .vscode/
 
-# Model files (large binaries)
-*.h5
-*.pkl
-*.pt
-*.pth
-
 # OS
 .DS_Store
 Thumbs.db
