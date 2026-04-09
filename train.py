@@ -4,7 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, Flatten, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
 from batch_data import get_generators, BATCH_SIZE
 
@@ -37,9 +37,9 @@ def build_model(input_shape=(66, 200, 3)):
 
         # 3 fully-connected layers
         Dense(100, activation='elu'),
-        # Dropout(0.2),
+        Dropout(0.2),
         Dense(50, activation='elu'),
-        # Dropout(0.2),
+        Dropout(0.2),
         Dense(10, activation='elu'),
 
         # Single output: steering angle
@@ -76,6 +76,13 @@ def train():
             monitor='val_loss',
             patience=10,
             restore_best_weights=True,
+            verbose=1,
+        ),
+        ReduceLROnPlateau(
+            monitor='val_loss',
+            factor=0.5,
+            patience=5,
+            min_lr=1e-6,
             verbose=1,
         ),
     ]
