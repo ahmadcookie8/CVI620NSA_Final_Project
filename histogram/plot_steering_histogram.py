@@ -5,15 +5,17 @@ import os
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-forwards_csv = os.path.join(base_dir, "training_data_forwards", "driving_log.csv")
-backwards_csv = os.path.join(base_dir, "training_data_backwards", "driving_log.csv")
+forwards_csv  = os.path.join(base_dir, "..", "training_data_forwards", "driving_log.csv")
+backwards_csv = os.path.join(base_dir, "..", "training_data_backwards", "driving_log.csv")
+unstable_csv  = os.path.join(base_dir, "..", "training_data_forwards_backwards_unstable", "driving_log.csv")
 
 cols = ["center", "steering", "throttle", "brake", "speed"]
 
-df_fwd = pd.read_csv(forwards_csv, header=None, names=cols)
-df_bwd = pd.read_csv(backwards_csv, header=None, names=cols)
+df_fwd      = pd.read_csv(forwards_csv,  header=None, names=cols)
+df_bwd      = pd.read_csv(backwards_csv, header=None, names=cols)
+df_unstable = pd.read_csv(unstable_csv,  header=None, names=cols)
 
-df_all = pd.concat([df_fwd, df_bwd], ignore_index=True)
+df_all = pd.concat([df_fwd, df_bwd, df_unstable], ignore_index=True)
 
 # steering values are already normalized to [-1, 1] by the sim
 steering = df_all["steering"].astype(float)
@@ -21,6 +23,7 @@ steering = df_all["steering"].astype(float)
 print(f"Total samples     : {len(steering)}")
 print(f"  Forwards        : {len(df_fwd)}")
 print(f"  Backwards       : {len(df_bwd)}")
+print(f"  Unstable        : {len(df_unstable)}")
 print(f"Steering angle range (normalized): [{steering.min():.4f}, {steering.max():.4f}]")
 print(f"Mean  : {steering.mean():.4f}")
 print(f"Std   : {steering.std():.4f}")
