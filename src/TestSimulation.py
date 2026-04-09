@@ -61,6 +61,6 @@ def sendControl(steering, throttle):
     })
 
 if __name__ == "__main__":
-    model = load_model('model.h5')
+    model = load_model('models/model.h5')
     app = socketio.WSGIApp(sio, app)
     eventlet.wsgi.server(eventlet.listen(('', 4567)), app)

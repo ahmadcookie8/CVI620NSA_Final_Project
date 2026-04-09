@@ -8,16 +8,16 @@ AUGMENTATION_PROB = 0.25
 
 DATASETS = [
     # {
-    #     'src': 'training_data_forwards',
-    #     'dst': 'augmented_data_forwards',
+    #     'src': 'training/training_data_forwards',
+    #     'dst': 'training/augmented_data_forwards',
     # },
     # {
-    #     'src': 'training_data_backwards',
-    #     'dst': 'augmented_data_backwards',
+    #     'src': 'training/training_data_backwards',
+    #     'dst': 'training/augmented_data_backwards',
     # },
     {
-        'src': 'training_data_forwards_backwards_unstable',
-        'dst': 'augmented_data_forwards_backwards_unstable'
+        'src': 'training/training_data_forwards_backwards_unstable',
+        'dst': 'training/augmented_data_forwards_backwards_unstable'
     },
 ]
 

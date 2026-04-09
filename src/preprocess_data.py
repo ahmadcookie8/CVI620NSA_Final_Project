@@ -12,16 +12,16 @@ TARGET_H = 66
 
 DATASETS = [
     # {
-    #     'src': 'augmented_data_forwards',
-    #     'dst': 'preprocessed_data_forwards',
+    #     'src': 'training/augmented_data_forwards',
+    #     'dst': 'training/preprocessed_data_forwards',
     # },
     # {
-    #     'src': 'augmented_data_backwards',
-    #     'dst': 'preprocessed_data_backwards',
+    #     'src': 'training/augmented_data_backwards',
+    #     'dst': 'training/preprocessed_data_backwards',
     # },
     {
-        'src': 'augmented_data_forwards_backwards_unstable',
-        'dst': 'preprocessed_data_forwards_backwards_unstable'
+        'src': 'training/augmented_data_forwards_backwards_unstable',
+        'dst': 'training/preprocessed_data_forwards_backwards_unstable'
     },
 ]
 

@@ -5,9 +5,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 PREPROCESSED_DIRS = [
-    'preprocessed_data_forwards',
-    'preprocessed_data_backwards',
-    "preprocessed_data_forwards_backwards_unstable",
+    'training/preprocessed_data_forwards',
+    'training/preprocessed_data_backwards',
+    'training/preprocessed_data_forwards_backwards_unstable',
 ]
 
 BATCH_SIZE = 32

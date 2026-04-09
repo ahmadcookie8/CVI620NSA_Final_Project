@@ -5,9 +5,9 @@ import os
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
-forwards_csv  = os.path.join(base_dir, "..", "training_data_forwards", "driving_log.csv")
-backwards_csv = os.path.join(base_dir, "..", "training_data_backwards", "driving_log.csv")
-unstable_csv  = os.path.join(base_dir, "..", "training_data_forwards_backwards_unstable", "driving_log.csv")
+forwards_csv  = os.path.join(base_dir, "..", "..", "training", "training_data_forwards", "driving_log.csv")
+backwards_csv = os.path.join(base_dir, "..", "..", "training", "training_data_backwards", "driving_log.csv")
+unstable_csv  = os.path.join(base_dir, "..", "..", "training", "training_data_forwards_backwards_unstable", "driving_log.csv")
 
 cols = ["center", "steering", "throttle", "brake", "speed"]
 
@@ -51,7 +51,7 @@ ax.set_ylabel("Number of Samples", fontsize=11)
 ax.set_title("Steering Angle Distribution", fontsize=13, fontweight="bold")
 
 plt.tight_layout()
-output_path = os.path.join(base_dir, "steering_histogram.png")
+output_path = os.path.join(base_dir, "..", "..", "docs", "steering_histogram.png")
 plt.savefig(output_path, dpi=150, bbox_inches="tight")
 print(f"\nHistogram saved to: {output_path}")
 plt.show()

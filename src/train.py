@@ -14,7 +14,7 @@ from batch_data import get_generators, BATCH_SIZE
 EPOCHS     = 1000  # effectively unlimited — EarlyStopping will halt training
 LR         = 1e-3
 BATCH_SIZE = BATCH_SIZE   # inherited from batch_data (32)
-MODEL_PATH = 'model.h5'
+MODEL_PATH = 'models/model.h5'
 
 
 # ---------------------------------------------------------------------------
@@ -117,9 +117,9 @@ def plot_training(history):
     plt.ylabel('Loss (MSE)')
     plt.legend()
     plt.tight_layout()
-    plt.savefig('training_loss.png', dpi=150)
+    plt.savefig('docs/training_loss.png', dpi=150)
     plt.show()
-    print('Loss plot saved to training_loss.png')
+    print('Loss plot saved to docs/training_loss.png')
 
 
 if __name__ == '__main__':
