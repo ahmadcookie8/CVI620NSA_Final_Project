@@ -11,7 +11,7 @@ from batch_data import get_generators, BATCH_SIZE
 # ---------------------------------------------------------------------------
 # Hyperparameters
 # ---------------------------------------------------------------------------
-EPOCHS     = 30
+EPOCHS     = 1000  # effectively unlimited — EarlyStopping will halt training
 LR         = 1e-3
 BATCH_SIZE = BATCH_SIZE   # inherited from batch_data (32)
 MODEL_PATH = 'model.h5'
@@ -74,7 +74,7 @@ def train():
         ),
         EarlyStopping(
             monitor='val_loss',
-            patience=5,
+            patience=10,
             restore_best_weights=True,
             verbose=1,
         ),
