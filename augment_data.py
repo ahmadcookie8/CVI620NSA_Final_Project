@@ -81,19 +81,24 @@ def process_dataset(src_dir, dst_dir):
             print(f'  WARNING: could not read {src_img_path}, skipping.')
             continue
 
-        if random.random() < AUGMENTATION_PROB:
-            aug_fn = random.choice(AUGMENTATIONS)
-            img, steering = aug_fn(img, steering)
-            steering = float(np.clip(steering, -1.0, 1.0))
-            augmented_count += 1
-
+        # Always write the original (clean) image
         filename = os.path.basename(src_img_path)
         dst_img_path = os.path.join(dst_img_dir, filename)
         cv2.imwrite(dst_img_path, img)
+        new_rows.append([dst_dir + '/IMG/' + filename, steering])
 
-        # use forward slashes to match original CSV convention
-        csv_img_path = dst_dir + '/IMG/' + filename
-        new_rows.append([csv_img_path, steering])
+        # Additionally, augment 25% of images and write as a separate file
+        if random.random() < AUGMENTATION_PROB:
+            aug_fn = random.choice(AUGMENTATIONS)
+            aug_img, aug_steering = aug_fn(img, steering)
+            aug_steering = float(np.clip(aug_steering, -1.0, 1.0))
+            augmented_count += 1
+
+            name, ext = os.path.splitext(filename)
+            aug_filename = name + '_aug' + ext
+            aug_img_path = os.path.join(dst_img_dir, aug_filename)
+            cv2.imwrite(aug_img_path, aug_img)
+            new_rows.append([dst_dir + '/IMG/' + aug_filename, aug_steering])
 
     new_df = pd.DataFrame(new_rows)
     new_df.to_csv(os.path.join(dst_dir, 'driving_log.csv'), header=False, index=False)
