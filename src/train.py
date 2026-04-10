@@ -28,7 +28,7 @@ def build_model(input_shape=(66, 200, 3)):
 
         # 3 fully-connected layers
         Dense(100, activation='relu'),
-        Dropout(0.2), # dropout to remove some neurons to prevent generalization and "memorization"
+        Dropout(0.2), # dropout to remove some neurons to prevent "memorization"
         Dense(50, activation='relu'),
         Dropout(0.2),
         Dense(10, activation='relu'),
