@@ -34,6 +34,7 @@ docs/                       # Documentation and media
     training_loss.png
     steering_histogram.png
     Self-Driving-Demo.mp4
+    CVI620NSA_Challenges_Faced.docx
 
 README.md
 package_list.txt
