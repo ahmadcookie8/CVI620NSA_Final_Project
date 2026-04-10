@@ -18,20 +18,20 @@ MODEL_PATH = 'models/model.h5'
 def build_model(input_shape=(66, 200, 3)):
     model = Sequential([
         # 5 convolutional layers
-        Conv2D(24, (5, 5), strides=(2, 2), activation='elu', input_shape=input_shape),
-        Conv2D(36, (5, 5), strides=(2, 2), activation='elu'),
-        Conv2D(48, (5, 5), strides=(2, 2), activation='elu'),
-        Conv2D(64, (3, 3), activation='elu'),
-        Conv2D(64, (3, 3), activation='elu'),
+        Conv2D(24, (5, 5), strides=(2, 2), activation='relu', input_shape=input_shape),
+        Conv2D(36, (5, 5), strides=(2, 2), activation='relu'),
+        Conv2D(48, (5, 5), strides=(2, 2), activation='relu'),
+        Conv2D(64, (3, 3), activation='relu'),
+        Conv2D(64, (3, 3), activation='relu'),
 
         Flatten(),
 
         # 3 fully-connected layers
-        Dense(100, activation='elu'),
+        Dense(100, activation='relu'),
         Dropout(0.2), # dropout to remove some neurons to prevent generalization and "memorization"
-        Dense(50, activation='elu'),
+        Dense(50, activation='relu'),
         Dropout(0.2),
-        Dense(10, activation='elu'),
+        Dense(10, activation='relu'),
 
         # steering angle
         Dense(1),
