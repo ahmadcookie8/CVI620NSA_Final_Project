@@ -22,8 +22,8 @@ def _auto_namespace_connect(eio_sid, environ):
 sio.eio.on('connect', _auto_namespace_connect)
 
 app = Flask(__name__)
-# maxSpeed = 10
-maxSpeed = 100
+maxSpeed = 10
+# maxSpeed = 100
 
 def preProcessing(img):
     img = img[60:135, :, :]
