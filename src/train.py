@@ -1,6 +1,5 @@
 import math
 import matplotlib.pyplot as plt
-import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, Flatten, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
@@ -8,26 +7,18 @@ from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLRO
 
 from batch_data import get_generators, BATCH_SIZE
 
-# ---------------------------------------------------------------------------
 # Hyperparameters
-# ---------------------------------------------------------------------------
-EPOCHS     = 1000  # effectively unlimited — EarlyStopping will halt training
+EPOCHS     = 1000  # run until loss plateaus with a low learning rate
 LR         = 1e-3
-BATCH_SIZE = BATCH_SIZE   # inherited from batch_data (32)
+BATCH_SIZE = BATCH_SIZE   # inherited from batch_data - 32
 MODEL_PATH = 'models/model.h5'
 
 
-# ---------------------------------------------------------------------------
-# NVIDIA end-to-end CNN  (Figure 7)
-# ---------------------------------------------------------------------------
+# CNN matching layers in pdf instructions
 def build_model(input_shape=(66, 200, 3)):
     model = Sequential([
-        # Normalization: pixels already in [0,1] from the generator,
-        # rescale to [-1, 1] to match the NVIDIA paper convention.
-        tf.keras.layers.Lambda(lambda x: x * 2.0 - 1.0, input_shape=input_shape),
-
         # 5 convolutional layers
-        Conv2D(24, (5, 5), strides=(2, 2), activation='elu'),
+        Conv2D(24, (5, 5), strides=(2, 2), activation='elu', input_shape=input_shape),
         Conv2D(36, (5, 5), strides=(2, 2), activation='elu'),
         Conv2D(48, (5, 5), strides=(2, 2), activation='elu'),
         Conv2D(64, (3, 3), activation='elu'),
@@ -37,20 +28,18 @@ def build_model(input_shape=(66, 200, 3)):
 
         # 3 fully-connected layers
         Dense(100, activation='elu'),
-        Dropout(0.2),
+        Dropout(0.2), # dropout to remove some neurons to prevent generalization and "memorization"
         Dense(50, activation='elu'),
         Dropout(0.2),
         Dense(10, activation='elu'),
 
-        # Single output: steering angle
+        # steering angle
         Dense(1),
     ])
     return model
 
 
-# ---------------------------------------------------------------------------
 # Training
-# ---------------------------------------------------------------------------
 def train():
     train_gen, val_gen, n_train, n_val = get_generators(batch_size=BATCH_SIZE)
 
@@ -72,13 +61,13 @@ def train():
             save_best_only=True,
             verbose=1,
         ),
-        EarlyStopping(
+        EarlyStopping( # stop early if loss hasn't improved in 10 epochs
             monitor='val_loss',
             patience=10,
             restore_best_weights=True,
             verbose=1,
         ),
-        ReduceLROnPlateau(
+        ReduceLROnPlateau( # halves the learning rate if no improvement in 5 epochs (until min learning rate)
             monitor='val_loss',
             factor=0.5,
             patience=5,
@@ -101,9 +90,7 @@ def train():
     print(f'\nBest model saved to {MODEL_PATH}')
 
 
-# ---------------------------------------------------------------------------
 # Plot training graphs
-# ---------------------------------------------------------------------------
 def plot_training(history):
     train_loss = history.history['loss']
     val_loss   = history.history['val_loss']

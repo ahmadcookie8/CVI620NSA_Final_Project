@@ -13,8 +13,8 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent
 
 DATASETS = [
-    # "training_data_forwards",
-    # "training_data_backwards",
+    "training_data_forwards",
+    "training_data_backwards",
     "training_data_forwards_backwards_unstable",
 ]
 

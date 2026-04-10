@@ -13,9 +13,8 @@ PREPROCESSED_DIRS = [
 BATCH_SIZE = 32
 VAL_SPLIT = 0.2
 
-
+# Load and combine driving_log CSVs from all preprocessed directories
 def load_dataset(dirs):
-    """Load and combine driving_log CSVs from all preprocessed directories."""
     frames = []
     for d in dirs:
         csv_path = os.path.join(d, 'driving_log.csv')
@@ -23,14 +22,10 @@ def load_dataset(dirs):
         frames.append(df)
     return pd.concat(frames, ignore_index=True)
 
-
+# Yields (X, y) batches indefinitely.
+# X shape: (batch_size, 66, 200, 3)  float32, normalized to [0, 1]
+# y shape: (batch_size,)              float32 steering angles
 def batch_generator(samples, batch_size=BATCH_SIZE, training=True):
-    """
-    Yields (X, y) batches indefinitely.
-
-    X shape: (batch_size, 66, 200, 3)  float32, normalized to [0, 1]
-    y shape: (batch_size,)              float32 steering angles
-    """
     n = len(samples)
     indices = np.arange(n)
 
@@ -55,12 +50,9 @@ def batch_generator(samples, batch_size=BATCH_SIZE, training=True):
             if images:
                 yield np.array(images), np.array(steerings, dtype=np.float32)
 
-
+# Load the full dataset, split into train/val, and return:
+# train_gen, val_gen, n_train, n_val
 def get_generators(batch_size=BATCH_SIZE):
-    """
-    Load the full dataset, split into train/val, and return:
-        train_gen, val_gen, n_train, n_val
-    """
     df = load_dataset(PREPROCESSED_DIRS)
     train_df, val_df = train_test_split(df, test_size=VAL_SPLIT, random_state=42)
     train_df = train_df.reset_index(drop=True)

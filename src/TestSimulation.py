@@ -11,13 +11,13 @@ from io import BytesIO
 from PIL import Image
 import cv2
 
+# changes made because newer packages had to be used to support my gpu, and newer python-socketio had trouble connecting
 sio = socketio.Server(async_mode='eventlet')
 # python-socketio 5.x no longer auto-connects clients to the '/' namespace.
-# The simulator (old socket.io client) never sends the explicit connect packet,
-# so we patch the EIO connect to store environ first, then trigger the namespace connect.
+# The simulator (older socket.io client) never sends the explicit connect packet,
 _orig_eio_connect = sio._handle_eio_connect
 def _auto_namespace_connect(eio_sid, environ):
-    _orig_eio_connect(eio_sid, environ)       # stores environ, initializes manager
+    _orig_eio_connect(eio_sid, environ)
     sio._handle_connect(eio_sid, '/', None)    # connects client to '/' namespace
 sio.eio.on('connect', _auto_namespace_connect)
 
