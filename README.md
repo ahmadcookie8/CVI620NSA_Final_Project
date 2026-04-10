@@ -30,11 +30,11 @@ models/                     # Saved model weights
     model.h5
 
 docs/                       # Documentation and media
+    CVI620NSA_Challenges_Faced.docx
     Final_Project.pdf
     training_loss.png
     steering_histogram.png
     Self-Driving-Demo.mp4
-    CVI620NSA_Challenges_Faced.docx
 
 README.md
 package_list.txt
