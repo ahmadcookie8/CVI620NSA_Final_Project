@@ -30,7 +30,9 @@ models/                     # Saved model weights
     model.h5
 
 docs/                       # Documentation and media
+    CVI620NSA_Approach.docx
     CVI620NSA_Challenges_Faced.docx
+    CVI620NSA_Instructions_to_Run.docx
     Final_Project.pdf
     training_loss.png
     steering_histogram.png
