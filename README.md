@@ -47,18 +47,6 @@ package_list.txt
 4. **Train** — Run `src/train.py` to train the NVIDIA CNN; best model saved to `models/model.h5`
 5. **Test** — Run `src/TestSimulation.py`, then launch the Udacity simulator in autonomous mode
 
-## Model Architecture
-
-Based on the [NVIDIA End-to-End Deep Learning for Self-Driving Cars](https://arxiv.org/abs/1604.07316) architecture:
-
-- Input: 66×200×3 (YUV, normalized to [-1, 1])
-- 5 convolutional layers (ELU activation)
-- Flatten
-- Dense(100) + Dropout(0.2)
-- Dense(50) + Dropout(0.2)
-- Dense(10)
-- Dense(1) — steering angle output
-
 ## Setup
 
 Install dependencies into a Python virtual environment:
